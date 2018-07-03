@@ -8,7 +8,7 @@ class Kernel extends HttpKernel
 {
     /**
      * The application's global HTTP middleware stack.
-     *
+     * 全局组件，即所有的地方都自动调用。
      * These middleware are run during every request to your application.
      *
      * @var array
@@ -23,7 +23,7 @@ class Kernel extends HttpKernel
 
     /**
      * The application's route middleware groups.
-     *
+     * 路由组中定义组件
      * @var array
      */
     protected $middlewareGroups = [
@@ -41,11 +41,14 @@ class Kernel extends HttpKernel
             'throttle:60,1',
             'bindings',
         ],
+        'checkToken' => [
+            \App\Http\Middleware\RefreshToken::class,
+        ],
     ];
 
     /**
      * The application's route middleware.
-     *
+     * 路由中定义组件
      * These middleware may be assigned to groups or used individually.
      *
      * @var array
@@ -57,5 +60,7 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        // 'csrf' => \App\Http\Middleware\VerifyCsrfToken::class,
+        'vt' => \App\Http\Middleware\RefreshToken::class,
     ];
 }
